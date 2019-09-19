@@ -4,7 +4,7 @@
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 
-Rectangle rect;
+Rectangle playerPaddle;
 
 Vector2 ballPosition;
 Vector2 ballSpeed;
@@ -41,7 +41,7 @@ int main()
 
 void InitGame()
 {
-    rect = {50, SCREEN_HEIGHT / 2.0f, 20, 125};
+    playerPaddle = {50, SCREEN_HEIGHT / 2.0f, 20, 125};
     ballPosition = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
     ballSpeed = {50, 50};
 }
@@ -51,11 +51,11 @@ void UpdateGame()
     //Get input
     if (IsKeyDown(KEY_UP))
     {
-        rect.y -= GetFrameTime() * 100.0f;
+        playerPaddle.y -= GetFrameTime() * 100.0f;
     }
     if (IsKeyDown(KEY_DOWN))
     {
-        rect.y += GetFrameTime() * 100.0f;
+        playerPaddle.y += GetFrameTime() * 100.0f;
     }
     if (IsKeyPressed(KEY_BACKSLASH))
     {
@@ -63,8 +63,8 @@ void UpdateGame()
     }
 
     //Collision Detection
-    //Temp Rect, centered to drawn rect
-    Rectangle collisionRect = CenteredRect(rect);
+    //Temp Rect, centered to drawn playerPaddle
+    Rectangle collisionRect = CenteredRect(playerPaddle);
     bool collision = CheckCollisionCircleRec(ballPosition, ballRadius, collisionRect);
 
     if (collision)
@@ -80,14 +80,14 @@ void DrawGame()
 {
     BeginDrawing();
     ClearBackground(BLACK);
-    DrawRectanglePro(rect, RectCenter(rect), 0, WHITE);
+    DrawRectanglePro(playerPaddle, RectCenter(playerPaddle), 0, WHITE);
     DrawCircleV(ballPosition, ballRadius, ballColor);
     if (debug)
     {
         //Draw debug lines as if rectangle is drawn from top-left corner
-        DrawRectangleLinesEx(rect, 1.0f, RED);
+        DrawRectangleLinesEx(playerPaddle, 1.0f, RED);
         //Draw debug lines as if it has its center aligned
-        DrawRectangleLines(rect.x - rect.width / 2, rect.y - rect.height / 2, rect.width, rect.height, BLUE);
+        DrawRectangleLines(playerPaddle.x - playerPaddle.width / 2, playerPaddle.y - playerPaddle.height / 2, playerPaddle.width, playerPaddle.height, BLUE);
     }
     EndDrawing();
 }
