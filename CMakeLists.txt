@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.14)
+project(Pong)
+
+set(CMAKE_CXX_STANDARD 17)
+
+link_libraries(raylib)
+
+file(GLOB SOURCES
+        *.h
+        *.cpp
+        )
+
+set(SOURCE_FILES src/main.cpp)
+add_executable(Pong ${SOURCE_FILES} ${SOURCES})
