@@ -84,12 +84,12 @@ void CheckCollisions()
         ballPosition.y *= -1;
     }
 
-    if (ballPosition.x + ballRadius + 1 >= SCREEN_WIDTH or ballPosition.x + ballRadius + 1 <= 0)
+    if (ballPosition.x + ballRadius + 1 >= SCREEN_WIDTH or ballPosition.x - ballRadius - 1 <= 0)
     {
         ballSpeed.x *= -1.0f;
         //ballSpeed.y *= -1.0f;
     }
-    if (ballPosition.y + ballRadius + 1 >= SCREEN_HEIGHT or ballPosition.y + ballRadius + 1 <= 0)
+    if (ballPosition.y + ballRadius + 1 >= SCREEN_HEIGHT or ballPosition.y - ballRadius - 1 <= 0)
     {
         //ballSpeed.x *= -1.0f;
         ballSpeed.y *= -1.0f;
