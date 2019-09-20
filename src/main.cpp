@@ -46,7 +46,7 @@ void InitGame()
     playerPaddle = {50, SCREEN_HEIGHT / 2.0f, 20, 125};
     aiPaddle = {SCREEN_WIDTH - 50.0f, SCREEN_HEIGHT / 2.0f, 20, 125};
     ballPosition = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
-    ballSpeed = {50, 50};
+    ballSpeed = {-50, -50};
 }
 
 void UpdateGame()
@@ -84,10 +84,17 @@ void CheckCollisions()
         ballPosition.y *= -1;
     }
 
-
-    if(ballPosition.x + ballRadius >= SCREEN_WIDTH){
-
+    if (ballPosition.x + ballRadius + 1 >= SCREEN_WIDTH or ballPosition.x + ballRadius + 1 <= 0)
+    {
+        ballSpeed.x *= -1.0f;
+        //ballSpeed.y *= -1.0f;
     }
+    if (ballPosition.y + ballRadius + 1 >= SCREEN_HEIGHT or ballPosition.y + ballRadius + 1 <= 0)
+    {
+        //ballSpeed.x *= -1.0f;
+        ballSpeed.y *= -1.0f;
+    }
+
 }
 
 void DrawGame()
@@ -119,3 +126,6 @@ Rectangle CenteredRect(Rectangle rectToCenter)
                               rectToCenter.width, rectToCenter.height};
     return centeredRect;
 }
+
+
+
