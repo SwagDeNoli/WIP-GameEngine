@@ -83,6 +83,11 @@ void CheckCollisions()
     {
         ballPosition.y *= -1;
     }
+
+
+    if(ballPosition.x + ballRadius >= SCREEN_WIDTH){
+
+    }
 }
 
 void DrawGame()
