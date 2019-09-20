@@ -5,6 +5,7 @@ int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 
 Rectangle playerPaddle;
+Rectangle aiPaddle;
 
 Vector2 ballPosition;
 Vector2 ballSpeed;
@@ -23,6 +24,7 @@ Vector2 RectCenter(Rectangle rectangle);
 
 Rectangle CenteredRect(Rectangle rectToCenter);
 
+void CheckCollisions();
 
 int main()
 {
@@ -42,6 +44,7 @@ int main()
 void InitGame()
 {
     playerPaddle = {50, SCREEN_HEIGHT / 2.0f, 20, 125};
+    aiPaddle = {SCREEN_WIDTH - 50.0f, SCREEN_HEIGHT / 2.0f, 20, 125};
     ballPosition = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
     ballSpeed = {50, 50};
 }
@@ -62,6 +65,15 @@ void UpdateGame()
         debug = !debug;
     }
 
+    CheckCollisions();
+
+    //Move Ball
+    ballPosition.y += ballSpeed.y * GetFrameTime();
+    ballPosition.x += ballSpeed.x * GetFrameTime();
+}
+
+void CheckCollisions()
+{
     //Collision Detection
     //Temp Rect, centered to drawn playerPaddle
     Rectangle collisionRect = CenteredRect(playerPaddle);
@@ -71,9 +83,6 @@ void UpdateGame()
     {
         ballPosition.y *= -1;
     }
-
-    ballPosition.y += ballSpeed.y * GetFrameTime();
-    ballPosition.x += ballSpeed.x * GetFrameTime();
 }
 
 void DrawGame()
@@ -82,12 +91,14 @@ void DrawGame()
     ClearBackground(BLACK);
     DrawRectanglePro(playerPaddle, RectCenter(playerPaddle), 0, WHITE);
     DrawCircleV(ballPosition, ballRadius, ballColor);
+
     if (debug)
     {
         //Draw debug lines as if rectangle is drawn from top-left corner
         DrawRectangleLinesEx(playerPaddle, 1.0f, RED);
         //Draw debug lines as if it has its center aligned
-        DrawRectangleLines(playerPaddle.x - playerPaddle.width / 2, playerPaddle.y - playerPaddle.height / 2, playerPaddle.width, playerPaddle.height, BLUE);
+        DrawRectangleLines(playerPaddle.x - playerPaddle.width / 2, playerPaddle.y - playerPaddle.height / 2,
+                           playerPaddle.width, playerPaddle.height, BLUE);
     }
     EndDrawing();
 }
