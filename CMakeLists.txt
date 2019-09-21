@@ -5,10 +5,5 @@ set(CMAKE_CXX_STANDARD 17)
 
 link_libraries(raylib)
 
-file(GLOB SOURCES
-        *.h
-        *.cpp
-        )
-
 set(SOURCE_FILES src/main.cpp src/Engine.cpp src/Engine.h)
 add_executable(Pong ${SOURCE_FILES} ${SOURCES})
