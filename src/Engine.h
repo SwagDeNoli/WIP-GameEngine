@@ -14,11 +14,14 @@ public:
     void UpdateGame(float deltaTime);
     void DrawGame();
 
+    Vector2 RectCenter(Rectangle rectangle);
+
+    Rectangle CenteredRect(Rectangle rectToCenter);
+
 private:
     int SCREEN_WIDTH = 800;
     int SCREEN_HEIGHT = 600;
     void CheckCollisions();
-
 };
 
 

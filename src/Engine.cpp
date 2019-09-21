@@ -29,8 +29,6 @@ void Engine::Init()
     aiPaddle = {SCREEN_WIDTH - 50.0f, SCREEN_HEIGHT / 2.0f, 20, 125};
     ballPosition = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
     ballSpeed = {-50, -50};
-
-
 }
 
 void Engine::UpdateGame(float deltaTime)
@@ -48,15 +46,65 @@ void Engine::UpdateGame(float deltaTime)
     {
         debug = !debug;
     }
+
+    CheckCollisions();
+
+
+    ballPosition.x += ballSpeed.x * GetFrameTime() * 5;
+    ballPosition.y += ballSpeed.y * GetFrameTime() * 5;
 }
 
 void Engine::DrawGame()
 {
+    BeginDrawing();
+    ClearBackground(BLACK);
+    DrawRectanglePro(playerPaddle, RectCenter(playerPaddle), 0, WHITE);
+    DrawCircleV(ballPosition, ballRadius, ballColor);
 
+    if (debug)
+    {
+        //Draw debug lines as if rectangle is drawn from top-left corner
+        DrawRectangleLinesEx(playerPaddle, 1.0f, RED);
+        //Draw debug lines as if it has its center aligned
+        DrawRectangleLines(playerPaddle.x - playerPaddle.width / 2, playerPaddle.y - playerPaddle.height / 2,
+                           playerPaddle.width, playerPaddle.height, BLUE);
+    }
+    EndDrawing();
 }
 
 void Engine::CheckCollisions()
 {
+    //Collision Detection
+    //Temp Rect, centered to drawn playerPaddle
+    Rectangle collisionRect = CenteredRect(playerPaddle);
+    bool collision = CheckCollisionCircleRec(ballPosition, ballRadius, collisionRect);
 
-    ballPosition.x += ballSpeed.x * GetFrameTime() * 100;
+    if (collision)
+    {
+        ballPosition.y *= -1;
+    }
+
+    if (ballPosition.x + ballRadius + 1 >= SCREEN_WIDTH or ballPosition.x - ballRadius - 1 <= 0)
+    {
+        ballSpeed.x *= -1.0f;
+        //ballSpeed.y *= -1.0f;
+    }
+    if (ballPosition.y + ballRadius + 1 >= SCREEN_HEIGHT or ballPosition.y - ballRadius - 1 <= 0)
+    {
+        //ballSpeed.x *= -1.0f;
+        ballSpeed.y *= -1.0f;
+    }
+
+}
+
+Vector2 Engine::RectCenter(Rectangle rectangle)
+{
+    return Vector2{rectangle.width / 2.0f, rectangle.height / 2.0f};
+}
+
+Rectangle Engine::CenteredRect(Rectangle rectToCenter)
+{
+    Rectangle centeredRect = {rectToCenter.x - rectToCenter.width / 2, rectToCenter.y - rectToCenter.height / 2,
+                              rectToCenter.width, rectToCenter.height};
+    return centeredRect;
 }
