@@ -1,5 +1,5 @@
 //
-// Created by CHRIS on 9/20/2019.
+// Created by SwagDeNoli on 9/20/2019.
 //
 
 #ifndef PONG_ENGINE_H

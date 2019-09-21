@@ -1,5 +1,5 @@
 //
-// Created by CHRIS on 9/20/2019.
+// Created by SwagDeNoli on 9/20/2019.
 //
 
 #include "Engine.h"
@@ -59,6 +59,7 @@ void Engine::DrawGame()
     BeginDrawing();
     ClearBackground(BLACK);
     DrawRectanglePro(playerPaddle, RectCenter(playerPaddle), 0, WHITE);
+    DrawRectanglePro(aiPaddle, RectCenter(playerPaddle), 0, WHITE);
     DrawCircleV(ballPosition, ballRadius, ballColor);
 
     if (debug)
@@ -81,7 +82,7 @@ void Engine::CheckCollisions()
 
     if (collision)
     {
-        ballPosition.y *= -1;
+        ballSpeed.y *= -1;
     }
 
     if (ballPosition.x + ballRadius + 1 >= SCREEN_WIDTH or ballPosition.x - ballRadius - 1 <= 0)
