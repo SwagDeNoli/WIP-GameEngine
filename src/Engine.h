@@ -8,7 +8,11 @@
 
 class Engine
 {
-
+public:
+    void Init();
+    void UpdateGame();
+    void DrawGame();
+    void CheckCollisions();
 };
 
 

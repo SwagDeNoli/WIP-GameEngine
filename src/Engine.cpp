@@ -3,3 +3,23 @@
 //
 
 #include "Engine.h"
+
+void Engine::Init()
+{
+
+}
+
+void Engine::UpdateGame()
+{
+
+}
+
+void Engine::DrawGame()
+{
+
+}
+
+void Engine::CheckCollisions()
+{
+
+}
