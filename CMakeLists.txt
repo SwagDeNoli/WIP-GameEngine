@@ -10,5 +10,5 @@ file(GLOB SOURCES
         *.cpp
         )
 
-set(SOURCE_FILES src/main.cpp)
+set(SOURCE_FILES src/main.cpp src/Engine.cpp src/Engine.h)
 add_executable(Pong ${SOURCE_FILES} ${SOURCES})
