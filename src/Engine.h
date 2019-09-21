@@ -5,14 +5,20 @@
 #ifndef PONG_ENGINE_H
 #define PONG_ENGINE_H
 
+#include "raylib.h"
 
 class Engine
 {
 public:
     void Init();
-    void UpdateGame();
+    void UpdateGame(float deltaTime);
     void DrawGame();
+
+private:
+    int SCREEN_WIDTH = 800;
+    int SCREEN_HEIGHT = 600;
     void CheckCollisions();
+
 };
 
 

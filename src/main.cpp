@@ -1,76 +1,31 @@
 #include <iostream>
 #include "raylib.h"
+#include "Engine.h"
 
-int SCREEN_WIDTH = 800;
-int SCREEN_HEIGHT = 600;
 
-Rectangle playerPaddle;
-Rectangle aiPaddle;
 
-Vector2 ballPosition;
-Vector2 ballSpeed;
-int ballRadius = 5;
 
-bool debug = false;
-Color ballColor = GREEN;
 
-void InitGame();
 
-void UpdateGame();
 
-void DrawGame();
-
-Vector2 RectCenter(Rectangle rectangle);
-
-Rectangle CenteredRect(Rectangle rectToCenter);
 
 void CheckCollisions();
 
 int main()
 {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
+    Engine engine;
+    engine.Init();
 
-    InitGame();
-    SetTargetFPS(60);
     while (!WindowShouldClose())
     {
-        UpdateGame();
-        DrawGame();
+        engine.UpdateGame(GetFrameTime());
+        engine.CheckCollisions();
+        engine.DrawGame();
     }
     CloseWindow();
     return 0;
 }
 
-void InitGame()
-{
-    playerPaddle = {50, SCREEN_HEIGHT / 2.0f, 20, 125};
-    aiPaddle = {SCREEN_WIDTH - 50.0f, SCREEN_HEIGHT / 2.0f, 20, 125};
-    ballPosition = {SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
-    ballSpeed = {-50, -50};
-}
-
-void UpdateGame()
-{
-    //Get input
-    if (IsKeyDown(KEY_UP))
-    {
-        playerPaddle.y -= GetFrameTime() * 100.0f;
-    }
-    if (IsKeyDown(KEY_DOWN))
-    {
-        playerPaddle.y += GetFrameTime() * 100.0f;
-    }
-    if (IsKeyPressed(KEY_BACKSLASH))
-    {
-        debug = !debug;
-    }
-
-    CheckCollisions();
-
-    //Move Ball
-    ballPosition.y += ballSpeed.y * GetFrameTime();
-    ballPosition.x += ballSpeed.x * GetFrameTime();
-}
 
 void CheckCollisions()
 {
