@@ -109,3 +109,8 @@ Rectangle Engine::CenteredRect(Rectangle rectToCenter)
                               rectToCenter.width, rectToCenter.height};
     return centeredRect;
 }
+
+void Engine::CloseGame()
+{
+    CloseWindow();
+}

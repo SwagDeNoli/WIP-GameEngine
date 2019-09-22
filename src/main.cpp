@@ -13,7 +13,9 @@ int main()
         engine.UpdateGame(GetFrameTime());
         engine.DrawGame();
     }
-    CloseWindow();
+
+    engine.CloseGame();
+
     return 0;
 }
 

@@ -13,6 +13,7 @@ public:
     void Init();
     void UpdateGame(float deltaTime);
     void DrawGame();
+    void CloseGame();
 
     Vector2 RectCenter(Rectangle rectangle);
 
