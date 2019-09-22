@@ -10,6 +10,7 @@ int main()
 
     while (!WindowShouldClose())
     {
+        engine.CaptureInput();
         engine.UpdateGame(GetFrameTime());
         engine.DrawGame();
     }
