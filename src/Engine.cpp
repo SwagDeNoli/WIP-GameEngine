@@ -33,22 +33,9 @@ void Engine::Init()
 
 void Engine::UpdateGame(float deltaTime)
 {
-    //Get input
-    if (IsKeyDown(KEY_UP))
-    {
-        playerPaddle.y -= GetFrameTime() * 100.0f;
-    }
-    if (IsKeyDown(KEY_DOWN))
-    {
-        playerPaddle.y += GetFrameTime() * 100.0f;
-    }
-    if (IsKeyPressed(KEY_BACKSLASH))
-    {
-        debug = !debug;
-    }
+    CaptureInput();
 
     CheckCollisions();
-
 
     ballPosition.x += ballSpeed.x * GetFrameTime() * 5;
     ballPosition.y += ballSpeed.y * GetFrameTime() * 5;
@@ -96,6 +83,24 @@ void Engine::CheckCollisions()
         ballSpeed.y *= -1.0f;
     }
 
+}
+
+void Engine::CaptureInput()
+{
+
+    //Get input
+    if (IsKeyDown(KEY_UP))
+    {
+        playerPaddle.y -= GetFrameTime() * 100.0f;
+    }
+    if (IsKeyDown(KEY_DOWN))
+    {
+        playerPaddle.y += GetFrameTime() * 100.0f;
+    }
+    if (IsKeyPressed(KEY_BACKSLASH))
+    {
+        debug = !debug;
+    }
 }
 
 Vector2 Engine::RectCenter(Rectangle rectangle)

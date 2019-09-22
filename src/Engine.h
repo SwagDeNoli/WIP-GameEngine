@@ -14,6 +14,7 @@ public:
     void UpdateGame(float deltaTime);
     void DrawGame();
     void CloseGame();
+    void CaptureInput();
 
     Vector2 RectCenter(Rectangle rectangle);
 
