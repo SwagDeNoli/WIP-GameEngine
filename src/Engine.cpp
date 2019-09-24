@@ -4,17 +4,20 @@
 
 #include "Engine.h"
 #include "raylib.h"
-#include "Paddle.h"
 
-Paddle playerPaddle;
+struct Screen{
+    int width;
+    int height;
+    int targetFPS;
+};
+
+Screen screenSettings = {800, 600, 60};
 
 void Engine::Init()
 {
-    RAYLIB_H::InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
+    RAYLIB_H::InitWindow(screenSettings.width, screenSettings.height, "GameEngine");
 
-    SetTargetFPS(60);
-
-    playerPaddle.Init();
+    RAYLIB_H::SetTargetFPS(screenSettings.targetFPS);
 }
 
 void Engine::CaptureInput()
@@ -24,7 +27,7 @@ void Engine::CaptureInput()
 
 void Engine::UpdateGame(float deltaTime)
 {
-    playerPaddle.Update(deltaTime);
+
 }
 
 //Draws every frame
@@ -34,7 +37,6 @@ void Engine::DrawGame()
     BeginDrawing();
     ClearBackground(BLACK);
 
-    playerPaddle.Draw();
 
     EndDrawing();
 }

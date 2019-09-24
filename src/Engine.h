@@ -2,8 +2,8 @@
 // Created by SwagDeNoli on 9/20/2019.
 //
 
-#ifndef PONG_ENGINE_H
-#define PONG_ENGINE_H
+#ifndef ENGINE_H
+#define ENGINE_H
 
 #include "raylib.h"
 

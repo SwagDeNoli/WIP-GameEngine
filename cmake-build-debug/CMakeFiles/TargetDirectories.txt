@@ -1,3 +1,0 @@
-C:/Dev/Projects/SchoolProjects/Pong/cmake-build-debug/CMakeFiles/Pong.dir
-C:/Dev/Projects/SchoolProjects/Pong/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Dev/Projects/SchoolProjects/Pong/cmake-build-debug/CMakeFiles/rebuild_cache.dir
