@@ -17,7 +17,7 @@ public:
     void CaptureInput();
 
     void DrawRect(Rectangle rect, Color color);
-
+    void DrawDebugRect(Rectangle rect);
     Vector2 RectCenter(Rectangle rectangle)
     {
         return Vector2{rectangle.width / 2.0f, rectangle.height / 2.0f};
@@ -31,8 +31,6 @@ public:
     }
 
 private:
-    int SCREEN_WIDTH = 800;
-    int SCREEN_HEIGHT = 600;
     void CheckCollisions();
 };
 

@@ -13,9 +13,10 @@ struct Screen
     int height;
     int targetFPS;
     std::string screenTitle;
+    Color backgroundColor;
 };
 
-Screen screenSettings = {800, 600, 60, "Game Engine"};
+Screen screenSettings = {800, 600, 60, "Game Engine", BLACK};
 
 Player player;
 
@@ -25,7 +26,7 @@ void Engine::Init()
 
     RAYLIB_H::SetTargetFPS(screenSettings.targetFPS);
 
-    player.rect = {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 50, 50};
+    player.rect = {50, GetScreenHeight() / 2.0f, 10, 120};
     player.color = WHITE;
 }
 
@@ -33,20 +34,20 @@ void Engine::CaptureInput()
 {
     if (IsKeyDown(KEY_W))
     {
-        player.rect.y -= player.speed.y;
+        player.rect.y -= player.speed.y * GetFrameTime();
     }
     if (IsKeyDown(KEY_S))
     {
-        player.rect.y += player.speed.y;
+        player.rect.y += player.speed.y * GetFrameTime();
     }
-    if (IsKeyDown(KEY_A))
+    /*if (IsKeyDown(KEY_A))
     {
-        player.rect.x -= player.speed.x;
+        player.rect.x -= player.speed.x * GetFrameTime();
     }
     if (IsKeyDown(KEY_D))
     {
-        player.rect.x += player.speed.x;
-    }
+        player.rect.x += player.speed.x * GetFrameTime();
+    }*/
 }
 
 void Engine::UpdateGame(float deltaTime)
@@ -64,9 +65,11 @@ void Engine::DrawGame()
 {
     //BeginDraw, ClearBackground, EndDrawing must be in their respective lines, otherwise this will crash the program
     RAYLIB_H::BeginDrawing();
-    RAYLIB_H::ClearBackground(BLACK);
+    RAYLIB_H::ClearBackground(screenSettings.backgroundColor);
 
     Engine::DrawRect(player.rect, player.color);
+
+    Engine::DrawDebugRect(player.rect);
 
     RAYLIB_H::EndDrawing();
 }
@@ -76,9 +79,17 @@ void Engine::CloseGame()
     CloseWindow();
 }
 
+//Wrapper function for drawing centered rectangles, with no rotation
 void Engine::DrawRect(Rectangle rect, Color color)
 {
     RAYLIB_H::DrawRectanglePro(rect, Vector2{rect.width/2, rect.height/2}, 0, color);
 }
+
+void Engine::DrawDebugRect(Rectangle rect)
+{
+    RAYLIB_H::DrawRectangleLines(rect.x - (rect.width / 2), rect.y - (rect.height / 2), rect.width, rect.height, RED);
+}
+
+
 
 

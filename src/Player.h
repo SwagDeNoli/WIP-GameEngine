@@ -12,7 +12,7 @@ class Player
 public:
     RAYLIB_H::Rectangle rect;
     Color color;
-    Vector2 speed = {5, 5};
+    Vector2 speed = {40, 40};
 };
 
 
