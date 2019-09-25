@@ -5,10 +5,14 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "raylib.h"
 
 class Player
 {
-
+public:
+    RAYLIB_H::Rectangle rect;
+    Color color;
+    Vector2 speed = {5, 5};
 };
 
 

@@ -16,12 +16,14 @@ public:
     void CloseGame();
     void CaptureInput();
 
+    void DrawRect(Rectangle rect, Color color);
+
     Vector2 RectCenter(Rectangle rectangle)
     {
         return Vector2{rectangle.width / 2.0f, rectangle.height / 2.0f};
     }
 
-    Rectangle CenteredRect(Rectangle rectToCenter)
+    Rectangle GetRectCenter(Rectangle rectToCenter)
     {
         Rectangle centeredRect = {rectToCenter.x - rectToCenter.width / 2, rectToCenter.y - rectToCenter.height / 2,
                                   rectToCenter.width, rectToCenter.height};
