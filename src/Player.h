@@ -13,6 +13,9 @@ public:
     RAYLIB_H::Rectangle rect;
     Color color;
     Vector2 speed = {40, 40};
+
+    bool IsInXScreenBounds();
+    bool IsInYScreenBounds();
 };
 
 

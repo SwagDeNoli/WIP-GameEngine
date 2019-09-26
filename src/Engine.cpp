@@ -6,7 +6,6 @@
 #include "Engine.h"
 #include "raylib.h"
 #include "Player.h"
-
 struct Screen
 {
     int width;
@@ -20,39 +19,40 @@ Screen screenSettings = {800, 600, 60, "Game Engine", BLACK};
 
 Player player;
 
+int playerScore = 0;
+int aiScore = 0;
+
 void Engine::Init()
 {
     RAYLIB_H::InitWindow(screenSettings.width, screenSettings.height, screenSettings.screenTitle.c_str());
 
     RAYLIB_H::SetTargetFPS(screenSettings.targetFPS);
 
-    player.rect = {50, GetScreenHeight() / 2.0f, 10, 120};
+    player.rect = {50, GetScreenHeight() / 2.0f, 15, 120};
     player.color = WHITE;
+
 }
 
 void Engine::CaptureInput()
 {
-    if (IsKeyDown(KEY_W))
+    if (IsKeyDown(KEY_UP))
     {
-        player.rect.y -= player.speed.y * GetFrameTime();
+        if (player.IsInYScreenBounds())
+        {
+            player.rect.y -= player.speed.y * GetFrameTime();
+        }
     }
-    if (IsKeyDown(KEY_S))
+    if (IsKeyDown(KEY_DOWN))
     {
-        player.rect.y += player.speed.y * GetFrameTime();
+        if (player.IsInYScreenBounds())
+        {
+            player.rect.y += player.speed.y * GetFrameTime();
+        }
     }
-    /*if (IsKeyDown(KEY_A))
-    {
-        player.rect.x -= player.speed.x * GetFrameTime();
-    }
-    if (IsKeyDown(KEY_D))
-    {
-        player.rect.x += player.speed.x * GetFrameTime();
-    }*/
 }
 
 void Engine::UpdateGame(float deltaTime)
 {
-
 }
 
 void Engine::CheckCollisions()
@@ -69,7 +69,12 @@ void Engine::DrawGame()
 
     Engine::DrawRect(player.rect, player.color);
 
+    Engine::DrawText(FormatText("Score: %d", playerScore), Vector2{0, 0}, 30, WHITE);
+
+    Engine::DrawText(FormatText("Score: %d", aiScore), Vector2{GetScreenWidth() - 150.0f, 0}, 30.0f, WHITE);
+
     Engine::DrawDebugRect(player.rect);
+
 
     RAYLIB_H::EndDrawing();
 }
@@ -82,12 +87,18 @@ void Engine::CloseGame()
 //Wrapper function for drawing centered rectangles, with no rotation
 void Engine::DrawRect(Rectangle rect, Color color)
 {
-    RAYLIB_H::DrawRectanglePro(rect, Vector2{rect.width/2, rect.height/2}, 0, color);
+    RAYLIB_H::DrawRectanglePro(rect, RectCenter(rect), 0, color);
 }
 
 void Engine::DrawDebugRect(Rectangle rect)
 {
-    RAYLIB_H::DrawRectangleLines(rect.x - (rect.width / 2), rect.y - (rect.height / 2), rect.width, rect.height, RED);
+    RAYLIB_H::DrawRectangleLines(rect.x - (rect.width / 2), rect.y - (rect.height / 2), rect.width, rect.height,
+                                 RED);
+}
+
+void Engine::DrawText(std::string text, Vector2 position, int size, Color color)
+{
+    RAYLIB_H::DrawText(text.c_str(), position.x, position.y, size, color);
 }
 
 

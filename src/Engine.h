@@ -11,13 +11,22 @@ class Engine
 {
 public:
     void Init();
+
     void UpdateGame(float deltaTime);
+
     void DrawGame();
+
     void CloseGame();
+
     void CaptureInput();
 
     void DrawRect(Rectangle rect, Color color);
+
     void DrawDebugRect(Rectangle rect);
+
+    void DrawText(std::string text, Vector2 position, int size, Color color);
+
+private:
     Vector2 RectCenter(Rectangle rectangle)
     {
         return Vector2{rectangle.width / 2.0f, rectangle.height / 2.0f};
@@ -30,8 +39,8 @@ public:
         return centeredRect;
     }
 
-private:
     void CheckCollisions();
+
 };
 
 
